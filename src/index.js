@@ -1,9 +1,11 @@
 import './css/styles.css';
 import ImageService from './js/image-service';
 import { Notify } from 'notiflix';
+import imageCards from './templates/image-cards.hbs';
 
 const refs = {
   searchForm: document.getElementById('search-form'),
+  gallery: document.querySelector('.gallery'),
 };
 
 const imageService = new ImageService();
@@ -27,16 +29,18 @@ const fetchImages = async () => {
     const { hits: images } = data;
 
     if (images.length === 0) {
-      Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
+      Notify.failure('Sorry, there are no images matching your search query. Please try again.');
       return;
     }
 
-    console.log(images);
+    appendGalleryMarkup(images);
   } catch (error) {
     Notify.failure('Failed to get data, please try again later.');
   }
+};
+
+const appendGalleryMarkup = images => {
+  refs.gallery.insertAdjacentHTML('beforeend', imageCards(images));
 };
 
 refs.searchForm.addEventListener('submit', searchFormSubmitHandler);
