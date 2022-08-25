@@ -9,7 +9,7 @@ export default class ImageService {
   async fetchImages() {
     const config = {
       params: {
-        d: this.searchQuery,
+        q: this.searchQuery,
       },
     };
     const response = await api.request(config);
