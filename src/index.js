@@ -1,12 +1,8 @@
 import './css/styles.css';
+import refs from './js/refs';
 import ImageService from './js/image-service';
 import { Notify } from 'notiflix';
 import imageCards from './templates/image-cards.hbs';
-
-const refs = {
-  searchForm: document.getElementById('search-form'),
-  gallery: document.querySelector('.gallery'),
-};
 
 const imageService = new ImageService();
 
