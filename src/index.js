@@ -27,6 +27,7 @@ const searchFormSubmitHandler = async event => {
 
     Notify.success(`Hooray! We found ${totalHits} images.`);
     clearGalleryMarkup();
+    window.scrollBy(0, 0);
     appendGalleryMarkup(images);
     showLoadMoreBtn();
     imageService.incrementPage();
