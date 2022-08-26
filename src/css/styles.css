@@ -2,9 +2,12 @@
   --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   --animation-duration: 250ms;
   --primary-bgr-color: #fafafa;
-  --primary-text-color: #212121;
   --secondary-bgr-color: #3456d2;
-  --panel-shadow: rgba(100, 100, 111, 0.4) 0 0.5rem 2rem 0;
+  --primary-text-color: #212121;
+  --secondary-text-color: #fafafa;
+  --primary-btn-color: #3456d2;
+  --secondary-btn-color: #2a4bc0;
+  --panel-shadow: rgba(100, 100, 111, 0.6) 0 0.4rem 2rem 0;
   --card-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
     0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
@@ -129,10 +132,29 @@ body {
   background-size: 1.2rem;
 }
 
-.gallery {
-  margin-left: auto;
-  margin-right: auto;
+.load-more {
+  padding: 15px 0;
+  margin: 0 auto 30px;
 
+  display: none;
+  width: 200px;
+
+  font-size: 1rem;
+
+  color: var(--secondary-text-color);
+  background-color: var(--primary-btn-color);
+
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.load-more:hover {
+  background-color: var(--secondary-btn-color);
+}
+
+.gallery {
+  margin: 0 auto 30px;
   padding-top: 90px;
 
   display: grid;
