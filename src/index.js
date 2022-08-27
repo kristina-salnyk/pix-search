@@ -46,6 +46,8 @@ const searchFormSubmitHandler = async event => {
 
 const loadMoreBtnHandler = async () => {
   try {
+    ui.hideLoadMoreBtn();
+
     const data = await imageService.fetchImages();
     const { hits: images, totalHits } = data;
 
@@ -53,9 +55,9 @@ const loadMoreBtnHandler = async () => {
 
     if (totalHits <= imageService.getCurrentCapacity()) {
       Notify.info('We are sorry, but you have reached the end of search results.');
-      ui.hideLoadMoreBtn();
     } else {
       imageService.incrementPage();
+      ui.showLoadMoreBtn();
     }
   } catch (error) {
     Notify.failure('Failed to get data, please try again later.');
