@@ -171,7 +171,7 @@ body {
   transform: scale(1.03);
 }
 
-.photo-card > img {
+.photo-card img {
   height: 80%;
   width: 100%;
   object-fit: cover;
@@ -191,12 +191,13 @@ body {
   align-items: center;
 }
 
-/*.gallery__link {*/
-/*  display: block;*/
-/*  text-decoration: none;*/
-/*  height: 100%;*/
-/*}*/
+.photo-link {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+  color: var(--primary-text-color);
+}
 
-/*.gallery__link:hover {*/
-/*  cursor: zoom-in;*/
-/*}*/
+.photo-link:hover {
+  cursor: zoom-in;
+}

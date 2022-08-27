@@ -3,6 +3,8 @@ import refs from './js/refs';
 import ui from './js/ui-interaction';
 import ImageService from './js/image-service';
 import { Notify } from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.css';
 
 const searchFormSubmitHandler = async event => {
   event.preventDefault();
@@ -29,9 +31,10 @@ const searchFormSubmitHandler = async event => {
 
     Notify.success(`Hooray! We found ${totalHits} images.`);
 
-    ui.backToUp();
     ui.clearGalleryMarkup();
+    ui.backToUp();
     ui.appendGalleryMarkup(images);
+    lightbox.refresh();
 
     if (totalHits > imageService.getCurrentCapacity()) {
       imageService.incrementPage();
@@ -52,6 +55,7 @@ const loadMoreBtnHandler = async () => {
     const { hits: images, totalHits } = data;
 
     ui.appendGalleryMarkup(images);
+    lightbox.refresh();
 
     if (totalHits <= imageService.getCurrentCapacity()) {
       Notify.info('We are sorry, but you have reached the end of search results.');
@@ -65,6 +69,10 @@ const loadMoreBtnHandler = async () => {
 };
 
 const imageService = new ImageService();
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+});
 
 refs.searchForm.addEventListener('submit', searchFormSubmitHandler);
 refs.loadMoreBtn.addEventListener('click', loadMoreBtnHandler);

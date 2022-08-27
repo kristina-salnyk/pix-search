@@ -3,6 +3,16 @@ import imageCards from '../templates/image-cards.hbs';
 
 const appendGalleryMarkup = images => {
   refs.gallery.insertAdjacentHTML('beforeend', imageCards(images));
+
+  if ('loading' in HTMLImageElement.prototype) {
+    const loadingLazyImages = document.querySelectorAll('img[loading="lazy"]:not([src])');
+
+    loadingLazyImages.forEach(img => {
+      img.src = img.dataset.src;
+    });
+  } else {
+    require('lazysizes');
+  }
 };
 
 const clearGalleryMarkup = () => {
