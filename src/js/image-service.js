@@ -3,10 +3,12 @@ import api from './pixabay-api';
 export default class ImageService {
   #searchQuery;
   #page;
+  #perPage;
 
   constructor() {
     this.#searchQuery = '';
     this.#page = 1;
+    this.#perPage = 40;
   }
 
   async fetchImages() {
@@ -14,6 +16,7 @@ export default class ImageService {
       params: {
         q: this.#searchQuery,
         page: this.#page,
+        per_page: this.#perPage,
       },
     };
     const response = await api.request(config);
@@ -29,6 +32,10 @@ export default class ImageService {
 
   set searchQuery(newSearchQuery) {
     this.#searchQuery = newSearchQuery;
-    this.#page = 1;
+    this.resetPage();
+  }
+
+  getCurrentCapacity() {
+    return this.#perPage * this.#page;
   }
 }

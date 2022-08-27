@@ -1,8 +1,8 @@
 import './css/styles.css';
 import refs from './js/refs';
+import ui from './js/ui-interaction';
 import ImageService from './js/image-service';
 import { Notify } from 'notiflix';
-import imageCards from './templates/image-cards.hbs';
 
 const searchFormSubmitHandler = async event => {
   event.preventDefault();
@@ -10,6 +10,7 @@ const searchFormSubmitHandler = async event => {
   const searchQuery = event.currentTarget.elements.searchQuery.value.trim();
   if (!searchQuery) {
     Notify.info('Please enter the query to search images.');
+    ui.hideLoadMoreBtn();
     return;
   }
 
@@ -19,55 +20,46 @@ const searchFormSubmitHandler = async event => {
     const data = await imageService.fetchImages();
     const { hits: images, totalHits } = data;
 
-    if (images.length === 0) {
+    if (totalHits === 0) {
       Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-      clearGalleryMarkup();
+      ui.clearGalleryMarkup();
+      ui.hideLoadMoreBtn();
       return;
     }
 
     Notify.success(`Hooray! We found ${totalHits} images.`);
-    clearGalleryMarkup();
-    window.scrollBy(0, 0);
-    appendGalleryMarkup(images);
-    showLoadMoreBtn();
-    imageService.incrementPage();
+
+    ui.backToUp();
+    ui.clearGalleryMarkup();
+    ui.appendGalleryMarkup(images);
+
+    if (totalHits > imageService.getCurrentCapacity()) {
+      imageService.incrementPage();
+      ui.showLoadMoreBtn();
+    } else {
+      ui.hideLoadMoreBtn();
+    }
   } catch (error) {
     Notify.failure('Failed to get data, please try again later.');
   }
 };
 
-const loadMoreBtnHandler = async event => {
+const loadMoreBtnHandler = async () => {
   try {
     const data = await imageService.fetchImages();
-    const { hits: images } = data;
+    const { hits: images, totalHits } = data;
 
-    if (images.length === 0) {
+    ui.appendGalleryMarkup(images);
+
+    if (totalHits <= imageService.getCurrentCapacity()) {
       Notify.info('We are sorry, but you have reached the end of search results.');
-      hideLoadMoreBtn();
-      return;
+      ui.hideLoadMoreBtn();
+    } else {
+      imageService.incrementPage();
     }
-
-    appendGalleryMarkup(images);
-    imageService.incrementPage();
   } catch (error) {
     Notify.failure('Failed to get data, please try again later.');
   }
-};
-
-const appendGalleryMarkup = images => {
-  refs.gallery.insertAdjacentHTML('beforeend', imageCards(images));
-};
-
-const clearGalleryMarkup = () => {
-  refs.gallery.innerHTML = '';
-};
-
-const showLoadMoreBtn = () => {
-  refs.loadMoreBtn.style.display = 'block';
-};
-
-const hideLoadMoreBtn = () => {
-  refs.loadMoreBtn.style.display = 'none';
 };
 
 const imageService = new ImageService();
