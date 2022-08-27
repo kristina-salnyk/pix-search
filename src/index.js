@@ -32,7 +32,7 @@ const searchFormSubmitHandler = async event => {
     Notify.success(`Hooray! We found ${totalHits} images.`);
 
     ui.clearGalleryMarkup();
-    ui.backToUp();
+    ui.scrollToUp();
     ui.appendGalleryMarkup(images);
     lightbox.refresh();
 
@@ -55,6 +55,7 @@ const loadMoreBtnHandler = async () => {
     const { hits: images, totalHits } = data;
 
     ui.appendGalleryMarkup(images);
+    ui.scrollToNewGroup();
     lightbox.refresh();
 
     if (totalHits <= imageService.getCurrentCapacity()) {

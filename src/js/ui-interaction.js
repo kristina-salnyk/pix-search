@@ -27,8 +27,19 @@ const hideLoadMoreBtn = () => {
   refs.loadMoreBtn.style.display = 'none';
 };
 
-const backToUp = () => {
+const scrollToUp = () => {
   window.scrollBy(0, 0);
+};
+
+const scrollToNewGroup = () => {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 };
 
 export default {
@@ -36,5 +47,6 @@ export default {
   clearGalleryMarkup,
   showLoadMoreBtn,
   hideLoadMoreBtn,
-  backToUp,
+  scrollToUp,
+  scrollToNewGroup,
 };
