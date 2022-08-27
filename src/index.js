@@ -12,7 +12,7 @@ const searchFormSubmitHandler = async event => {
   const searchQuery = event.currentTarget.elements.searchQuery.value.trim();
   if (!searchQuery) {
     Notify.info('Please enter the query to search images.');
-    ui.hideLoadMoreBtn();
+    // ui.hideLoadMoreBtn();
     return;
   }
 
@@ -25,7 +25,7 @@ const searchFormSubmitHandler = async event => {
     if (totalHits === 0) {
       Notify.failure('Sorry, there are no images matching your search query. Please try again.');
       ui.clearGalleryMarkup();
-      ui.hideLoadMoreBtn();
+      // ui.hideLoadMoreBtn();
       return;
     }
 
@@ -38,9 +38,11 @@ const searchFormSubmitHandler = async event => {
 
     if (totalHits > imageService.getCurrentCapacity()) {
       imageService.incrementPage();
-      ui.showLoadMoreBtn();
+      // ui.showLoadMoreBtn();
+      const guardRef = ui.appendGuard();
+      observer.observe(guardRef);
     } else {
-      ui.hideLoadMoreBtn();
+      // ui.hideLoadMoreBtn();
     }
   } catch (error) {
     Notify.failure('Failed to get data, please try again later.');
@@ -49,7 +51,7 @@ const searchFormSubmitHandler = async event => {
 
 const loadMoreBtnHandler = async () => {
   try {
-    ui.hideLoadMoreBtn();
+    // ui.hideLoadMoreBtn();
 
     const data = await imageService.fetchImages();
     const { hits: images, totalHits } = data;
@@ -60,9 +62,10 @@ const loadMoreBtnHandler = async () => {
 
     if (totalHits <= imageService.getCurrentCapacity()) {
       Notify.info('We are sorry, but you have reached the end of search results.');
+      observer.disconnect();
     } else {
       imageService.incrementPage();
-      ui.showLoadMoreBtn();
+      // ui.showLoadMoreBtn();
     }
   } catch (error) {
     Notify.failure('Failed to get data, please try again later.');
@@ -75,5 +78,13 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
+const options = {
+  root: null,
+  rootMargin: '300px',
+  threshold: 1.0,
+};
+
+const observer = new IntersectionObserver(loadMoreBtnHandler, options);
+
 refs.searchForm.addEventListener('submit', searchFormSubmitHandler);
-refs.loadMoreBtn.addEventListener('click', loadMoreBtnHandler);
+// refs.loadMoreBtn.addEventListener('click', loadMoreBtnHandler);
