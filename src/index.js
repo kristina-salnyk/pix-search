@@ -48,8 +48,11 @@ const searchFormSubmitHandler = async event => {
   }
 };
 
-const loadMoreBtnHandler = async () => {
+const loadMoreBtnHandler = async entries => {
   try {
+    // use instead of load-more button
+    let targetAchieved = entries.some(entry => entry.isIntersecting);
+    if (!targetAchieved) return;
     // ui.hideLoadMoreBtn();
 
     const data = await imageService.fetchImages();
