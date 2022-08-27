@@ -39,8 +39,7 @@ const searchFormSubmitHandler = async event => {
     if (totalHits > imageService.getCurrentCapacity()) {
       imageService.incrementPage();
       // ui.showLoadMoreBtn();
-      const guardRef = ui.appendGuard();
-      observer.observe(guardRef);
+      observer.observe(refs.jsGuard);
     } else {
       // ui.hideLoadMoreBtn();
     }
@@ -62,7 +61,7 @@ const loadMoreBtnHandler = async () => {
 
     if (totalHits <= imageService.getCurrentCapacity()) {
       Notify.info('We are sorry, but you have reached the end of search results.');
-      observer.disconnect();
+      observer.unobserve(refs.jsGuard);
     } else {
       imageService.incrementPage();
       // ui.showLoadMoreBtn();
@@ -79,8 +78,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 });
 
 const options = {
-  root: null,
-  rootMargin: '300px',
+  rootMargin: '200px',
   threshold: 1.0,
 };
 

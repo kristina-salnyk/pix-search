@@ -42,14 +42,6 @@ const scrollToNewGroup = () => {
   });
 };
 
-const appendGuard = () => {
-  const guard = document.createElement('div');
-  guard.classList.add('js-guard');
-  refs.gallery.after(guard);
-
-  return guard;
-};
-
 export default {
   appendGalleryMarkup,
   clearGalleryMarkup,
@@ -57,5 +49,4 @@ export default {
   hideLoadMoreBtn,
   scrollToUp,
   scrollToNewGroup,
-  appendGuard,
 };
