@@ -8,7 +8,6 @@ import 'simplelightbox/dist/simple-lightbox.css';
 
 const searchFormSubmitHandler = async event => {
   event.preventDefault();
-
   observer.unobserve(refs.jsGuard);
 
   const searchQuery = event.currentTarget.elements.searchQuery.value.trim();
