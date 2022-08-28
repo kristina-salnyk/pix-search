@@ -13,6 +13,7 @@ export const searchFormSubmitHandler = async event => {
   const searchQuery = event.currentTarget.elements.searchQuery.value.trim();
   if (!searchQuery) {
     Notify.info('Please enter the query to search images.');
+    ui.clearGalleryMarkup();
     // ui.hideLoadMoreBtn();
     return;
   }
