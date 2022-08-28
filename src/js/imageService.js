@@ -35,6 +35,10 @@ export default class ImageService {
     this.resetPage();
   }
 
+  get searchQuery() {
+    return this.#searchQuery;
+  }
+
   getCurrentCapacity() {
     return this.#perPage * this.#page;
   }

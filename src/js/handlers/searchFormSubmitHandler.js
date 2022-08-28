@@ -15,6 +15,11 @@ export const searchFormSubmitHandler = async event => {
     return;
   }
 
+  if (searchQuery === imageService.searchQuery) {
+    Notify.info('Search results are already displayed.');
+    return;
+  }
+
   imageService.searchQuery = searchQuery;
 
   try {
