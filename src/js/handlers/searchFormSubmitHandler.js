@@ -1,10 +1,10 @@
-import { imageService } from '../index';
-import { lightbox } from '../index';
-import { observer } from '../index';
+import { imageService } from '../../index';
+import { lightbox } from '../../index';
+import { observer } from '../../index';
 
-import refs from './refs';
+import refs from '../refs';
 import { Notify } from 'notiflix';
-import ui from './ui-interaction';
+import ui from '../ui-interaction';
 
 export const searchFormSubmitHandler = async event => {
   event.preventDefault();

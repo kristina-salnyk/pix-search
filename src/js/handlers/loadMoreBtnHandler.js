@@ -1,10 +1,10 @@
-import { imageService } from '../index';
-import { lightbox } from '../index';
-import { observer } from '../index';
+import { imageService } from '../../index';
+import { lightbox } from '../../index';
+import { observer } from '../../index';
 
-import ui from './ui-interaction';
+import ui from '../ui-interaction';
 import { Notify } from 'notiflix';
-import refs from './refs';
+import refs from '../refs';
 
 export const loadMoreBtnHandler = async entries => {
   try {
