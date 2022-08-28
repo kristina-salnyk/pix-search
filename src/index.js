@@ -1,10 +1,10 @@
 import './css/styles.css';
 import refs from './js/refs';
 import ImageService from './js/image-service';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.css';
 import { searchFormSubmitHandler } from './js/handlers/searchFormSubmitHandler';
 import { loadMoreBtnHandler } from './js/handlers/loadMoreBtnHandler';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.css';
 
 export const imageService = new ImageService();
 

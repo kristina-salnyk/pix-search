@@ -1,7 +1,4 @@
-import { imageService } from '../../index';
-import { lightbox } from '../../index';
-import { observer } from '../../index';
-
+import { imageService, lightbox, observer } from '../../index';
 import ui from '../ui-interaction';
 import { Notify } from 'notiflix';
 import refs from '../refs';
