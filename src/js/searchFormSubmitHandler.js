@@ -40,8 +40,8 @@ export const searchFormSubmitHandler = async event => {
 
     if (totalHits > imageService.getCurrentCapacity()) {
       imageService.incrementPage();
-      // ui.showLoadMoreBtn();
       observer.observe(refs.jsGuard);
+      // ui.showLoadMoreBtn();
     } else {
       // ui.hideLoadMoreBtn();
     }
