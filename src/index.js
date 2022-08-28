@@ -1,6 +1,6 @@
 import './css/styles.css';
 import refs from './js/refs';
-import ImageService from './js/image-service';
+import ImageService from './js/imageService';
 import { searchFormSubmitHandler } from './js/handlers/searchFormSubmitHandler';
 import { loadMoreBtnHandler } from './js/handlers/loadMoreBtnHandler';
 import SimpleLightbox from 'simplelightbox';
