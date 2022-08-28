@@ -1,7 +1,7 @@
 import { imageService, lightbox, observer } from '../../index';
 import ui from '../ui-interaction';
-import { Notify } from 'notiflix';
 import refs from '../refs';
+import notifications from '../notifications';
 
 export const loadMoreBtnHandler = async entries => {
   try {
@@ -18,13 +18,13 @@ export const loadMoreBtnHandler = async entries => {
     lightbox.refresh();
 
     if (totalHits <= imageService.getCurrentCapacity()) {
-      Notify.info('We are sorry, but you have reached the end of search results.');
+      notifications.endOfResults();
       observer.unobserve(refs.jsGuard);
     } else {
       imageService.incrementPage();
       // ui.showLoadMoreBtn();
     }
   } catch (error) {
-    Notify.failure('Failed to get data, please try again later.');
+    notifications.failedRequest();
   }
 };

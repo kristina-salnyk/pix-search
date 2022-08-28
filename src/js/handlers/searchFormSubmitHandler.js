@@ -1,22 +1,24 @@
 import { imageService, lightbox, observer } from '../../index';
 import refs from '../refs';
-import { Notify } from 'notiflix';
 import ui from '../ui-interaction';
+import notifications from '../notifications';
 
 export const searchFormSubmitHandler = async event => {
   event.preventDefault();
-  observer.unobserve(refs.jsGuard);
 
   const searchQuery = event.currentTarget.elements.searchQuery.value.trim();
-  if (!searchQuery) {
-    Notify.info('Please enter the query to search images.');
-    ui.clearGalleryMarkup();
-    // ui.hideLoadMoreBtn();
+
+  if (searchQuery === imageService.searchQuery) {
+    notifications.repeatedRequest();
     return;
   }
 
-  if (searchQuery === imageService.searchQuery) {
-    Notify.info('Search results are already displayed.');
+  observer.unobserve(refs.jsGuard);
+
+  if (!searchQuery) {
+    notifications.emptyRequest();
+    ui.clearGalleryMarkup();
+    // ui.hideLoadMoreBtn();
     return;
   }
 
@@ -27,13 +29,13 @@ export const searchFormSubmitHandler = async event => {
     const { hits: images, totalHits } = data;
 
     if (totalHits === 0) {
-      Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+      notifications.notFoundResults();
       ui.clearGalleryMarkup();
       // ui.hideLoadMoreBtn();
       return;
     }
 
-    Notify.success(`Hooray! We found ${totalHits} images.`);
+    notifications.successRequest(totalHits);
 
     ui.clearGalleryMarkup();
     ui.scrollToUp();
@@ -48,6 +50,6 @@ export const searchFormSubmitHandler = async event => {
       // ui.hideLoadMoreBtn();
     }
   } catch (error) {
-    Notify.failure('Failed to get data, please try again later.');
+    notifications.failedRequest();
   }
 };

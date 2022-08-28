@@ -1,14 +1,20 @@
-import api from './pixabay-api';
+import api from './api';
 
 export default class ImageService {
   #searchQuery;
   #page;
   #perPage;
+  #imageType;
+  #orientation;
+  #safeSearch;
 
   constructor() {
     this.#searchQuery = '';
     this.#page = 1;
     this.#perPage = 40;
+    this.#imageType = 'photo';
+    this.#orientation = 'horizontal';
+    this.#safeSearch = true;
   }
 
   async fetchImages() {
@@ -17,6 +23,9 @@ export default class ImageService {
         q: this.#searchQuery,
         page: this.#page,
         per_page: this.#perPage,
+        image_type: this.#imageType,
+        orientation: this.#orientation,
+        safesearch: this.#safeSearch,
       },
     };
     const response = await api.request(config);
@@ -26,6 +35,7 @@ export default class ImageService {
   incrementPage() {
     this.#page += 1;
   }
+
   resetPage() {
     this.#page = 1;
   }
