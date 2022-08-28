@@ -1,0 +1,50 @@
+import { imageService } from '../index';
+import { lightbox } from '../index';
+import { observer } from '../index';
+
+import refs from './refs';
+import { Notify } from 'notiflix';
+import ui from './ui-interaction';
+
+export const searchFormSubmitHandler = async event => {
+  event.preventDefault();
+  observer.unobserve(refs.jsGuard);
+
+  const searchQuery = event.currentTarget.elements.searchQuery.value.trim();
+  if (!searchQuery) {
+    Notify.info('Please enter the query to search images.');
+    // ui.hideLoadMoreBtn();
+    return;
+  }
+
+  imageService.searchQuery = searchQuery;
+
+  try {
+    const data = await imageService.fetchImages();
+    const { hits: images, totalHits } = data;
+
+    if (totalHits === 0) {
+      Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+      ui.clearGalleryMarkup();
+      // ui.hideLoadMoreBtn();
+      return;
+    }
+
+    Notify.success(`Hooray! We found ${totalHits} images.`);
+
+    ui.clearGalleryMarkup();
+    ui.scrollToUp();
+    ui.appendGalleryMarkup(images);
+    lightbox.refresh();
+
+    if (totalHits > imageService.getCurrentCapacity()) {
+      imageService.incrementPage();
+      // ui.showLoadMoreBtn();
+      observer.observe(refs.jsGuard);
+    } else {
+      // ui.hideLoadMoreBtn();
+    }
+  } catch (error) {
+    Notify.failure('Failed to get data, please try again later.');
+  }
+};
