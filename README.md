@@ -1,5 +1,5 @@
 
-# PixSearch Landing Page
+# PixSearch
 
 This is a project that enables users to search for images using keywords. Each image in the search results provides information such as likes, views, comments, and downloads. Users can open each image in a preview mode and view them as a slideshow. The images are displayed paginated, and a new set of images is loaded when scrolling.
 
