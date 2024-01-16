@@ -1,11 +1,11 @@
 {
-  "name": "parcel-project-template",
+  "name": "pix-search",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://github.com/kristina-salnyk/goit-js-hw-11",
+  "homepage": "https://github.com/kristina-salnyk/pix-search",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-11/"
+    "build": "parcel build src/*.html --public-url /pix-search/"
   },
   "repository": {
     "type": "git",
