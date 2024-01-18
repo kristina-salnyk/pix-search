@@ -39,11 +39,18 @@ To run the project locally, follow these steps:
   cd pix-search
 ```
 
-3. Open the index.html file in your preferred web browser:
+3. Install dependencies:
 
 ```bash
-  open index.html
+  npm install
 ```
+
+4. Start the development server:
+
+```bash
+  npm start
+```
+This will launch the application on http://localhost:1234. Open your web browser and navigate to this address to explore PixSearch locally.
 
 
 ## Deployment
